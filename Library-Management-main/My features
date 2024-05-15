@@ -1,0 +1,16 @@
+Feature #1 
+
+# Borrow Books
+def borrowBook(self, book_id):
+        if book_id in self.books:
+            name = input('Enter your name: ')
+            email = input('Enter your email: ')
+            while '@' not in email:
+                print('Invalid email! Please enter a valid email')
+                email = input('Enter your email: ')
+            print(f"You have been issued {self.books[book_id]}. Please keep it safe and return it within 30 days")
+            del self.books[book_id]
+            return True
+        else:
+            print("Sorry, This book is either not available or has already been issued to someone else. Please wait until the book is available")
+            return False

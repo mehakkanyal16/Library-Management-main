@@ -1,0 +1,30 @@
+Feature #1 
+
+#search book
+
+    def searchBook(self, bookName):
+        for book in self.books:
+            if bookName.lower() in book.lower():
+                print(f"Book '{book}' is available in the library.")
+                return True
+        for book in self.borrowed_books:
+            if bookName.lower() in book.lower():
+                print(f"Book '{book}' is currently borrowed by {self.borrowed_books[book]['student_name']} ({self.borrowed_books[book]['student_email']}).")
+                return True
+        print(f"Book '{bookName}' is not available in the library.")
+        return False
+        
+Feature #2
+
+#overdue book notification
+
+    def overdueBookNotifications(self):
+        for book, details in self.borrowed_books.items():
+            due_date = details["due_date"]
+            if datetime.datetime.now() > due_date:
+                borrower_email = details["email"]
+                subject = "Overdue Book Reminder"
+                message = f"Dear {details['borrower']},\n\nThis is a reminder that your borrowed book '{book}' is now overdue. Please return it to the library as soon as possible.\n\nThank you.\nYour Library"
+                send_email(borrower_email, subject, message)
+                
+             

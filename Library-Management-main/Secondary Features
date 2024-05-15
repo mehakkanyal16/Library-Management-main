@@ -1,0 +1,30 @@
+#Feature to be merged
+
+#1 BOOK RESERVE
+def reserveBook(self, student_name, student_email, bookName):
+        if bookName in self.books:
+            if bookName not in self.book_reservation.keys():
+                self.book_reservation[bookName] = [(student_name, student_email)]
+                print(f"{bookName} has been reserved for you {student_name}! We will notify you when it becomes available.")
+            else:
+                self.book_reservation[bookName].append((student_name, student_email))
+                print(f"{bookName} is already reserved. You have been added to the waiting list.")
+                
+#2 FINE
+from datetime import datetime, timedelta
+
+class Library:
+    # ...
+
+    def calculateFine(shelf, bookName):
+        for book in shelf.borrowedBooks:
+            if book['name'] == bookName:
+                borrowedDate = book['borrowedDate']
+                dueDate = borrowedDate + timedelta(days=30)
+                currentDate = datetime.now()
+                if currentDate > dueDate:
+                    daysLate = (currentDate - dueDate).days
+                    finePerDay = 5 # configurable amount
+                    fine = daysLate * finePerDay
+                    return fine
+        return 0
